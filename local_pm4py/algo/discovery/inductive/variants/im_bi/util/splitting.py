@@ -43,51 +43,7 @@ def project(log, A, B):
         new_log.append(trace)
     return new_log
 
-# def split(cut, l, activity_key):
-#     counter = 0
-#     case_id_key = xes_constants.DEFAULT_TRACEID_KEY
-#     LA = obj.EventLog()
-#     LB = obj.EventLog()
-#     for i in range(0, len(l)):
-#         flagA = False
-#         flagB = False
-#         if l[i][0][activity_key] in cut[0]:
-#             flagA = True
-#         elif l[i][0][activity_key] in cut[1]:
-#             flagB = True
-#         T = obj.Trace()
-#         for j in range(0,len(l[i])):
-#             if flagA == True:
-#                 T.append(l[i][j])
-#                 if j != len(l[i])-1:
-#                     if l[i][j+1][activity_key] in cut[1]:
-#                         flagA = False
-#                         flagB = True
-#                         T.attributes[case_id_key] = counter
-#                         LA.append(T)
-#                         counter += 1
-#                         T = obj.Trace()
-#                 elif j == len(l[i]) - 1:
-#                     T.attributes[case_id_key] = counter
-#                     LA.append(T)
-#                     counter +=1
-#                     T = obj.Trace()
-#             elif flagB == True:
-#                 T.append(l[i][j])
-#                 if j != len(l[i]) - 1:
-#                     if l[i][j+1][activity_key] in cut[0]:
-#                         flagA = True
-#                         flagB = False
-#                         T.attributes[case_id_key] = counter
-#                         LB.append(T)
-#                         counter +=1
-#                         T = obj.Trace()
-#                 elif j == len(l[i]) - 1:
-#                     T.attributes[case_id_key] = counter
-#                     LB.append(T)
-#                     counter += 1
-#                     T = obj.Trace()
-#     return LA,LB  # new_logs is a list that contains logs
+
 
 
 def split(cut_type, cut, l, activity_key):
@@ -97,51 +53,22 @@ def split(cut_type, cut, l, activity_key):
     LB = obj.EventLog()
 
     if cut_type == 'seq':
-        # new_logs = []
-        # for c in cut:  # for all cut-partitions
-        #     lo = obj.EventLog()
-        #     for trace in l:  # for all traces in the log
-        #         not_in_c = True
-        #         trace_new = obj.Trace()
-        #         for j in range(0, len(trace)):  # for every event in the current trace
-        #             if trace[j][activity_key] in c:
-        #                 not_in_c = False
-        #                 while trace[j][activity_key] in c:
-        #                     trace_new.append(trace[j])  # we only add the events that match the cut partition
-        #                     if j + 1 < len(trace):
-        #                         j += 1
-        #                     else:
-        #                         j += 1
-        #                         break
-        #                 lo.append(trace_new)
-        #                 break
-        #         if not_in_c:
-        #             lo.append(trace_new)
-        #     new_logs.append(lo)
-        # if len(new_logs) > 0:
-        #     return new_logs[0], new_logs[1]
-        dfg_seq = {('start','a'):1, ('start','b'):1,('start','end'):1,('a','a'):1,('a','b'):1,('a','end'):1,('b','b'):1,('b','end'):1}
-        newlogP = project(l, cut[0], cut[1])
-        alig = dfg_alignment.apply(newlogP,dfg_seq,{'start':1},{'end':1})
-        for c,alig_ins in enumerate(alig):
-            TA = obj.Trace()
-            TB = obj.Trace()
-            for i, x in enumerate(alig_ins['alignment']):
-                if x[0]=='start' or x[0]=='end':
-                    continue
-                elif x[1]=='a':
-                    TA.append(l[c][i-1])
-                elif x[1] == 'b':
-                    TB.append(l[c][i - 1])
-            LA.append(TA)
-            LB.append(TB)
+
+        for trace in l:
+            cost = []
+            for i in range(0,len(trace)+1):
+                cost.append(sum([x['concept:name'] in cut[1] for x in trace[0:i]]) + sum([x['concept:name'] in cut[0] for x in trace[i:]]))
+            split_point = cost.index(min(cost))
+            trace_A = [x for x in trace[0:split_point] if x['concept:name'] in cut[0]]
+            trace_B = [x for x in trace[split_point:] if x['concept:name'] in cut[1]]
+            LA.append(trace_A)
+            LB.append(trace_B)
+
 
 
     if cut_type == 'exc':
         for tr in l:
             if len(tr)==0:
-                # T = obj.Trace()
-                # LA.append(T)
                 T = obj.Trace()
                 LB.append(T)
                 continue
