@@ -3,6 +3,5 @@ graphviz==0.16
 matplotlib==3.7.0
 networkx==2.5
 numpy==1.21.2
-pm4py==2.2.13.1
+pm4py==2.5.2
 PySimpleGUI==4.60.4
-~atplotlib==3.3.2

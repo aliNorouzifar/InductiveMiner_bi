@@ -21,15 +21,15 @@ from pm4py.algo.discovery.dfg.utils.dfg_utils import get_ingoing_edges, get_outg
 from pm4py.algo.discovery.dfg.utils.dfg_utils import negate, get_activities_self_loop, transform_dfg_to_directed_nx_graph
 from pm4py.algo.discovery.dfg.variants import native as dfg_inst
 from pm4py.algo.filtering.dfg.dfg_filtering import clean_dfg_based_on_noise_thresh
-from pm4py.algo.discovery.inductive.variants.im.util import base_case
+from local_pm4py.algo.discovery.inductive.variants.im.util import base_case
 from pm4py import util as pmutil
-from pm4py.algo.discovery.inductive.variants.im.util import splitting as split
+from local_pm4py.algo.discovery.inductive.variants.im.util import splitting as split
 from pm4py.statistics.attributes.log import get as attributes_get
 from pm4py.statistics.end_activities.log import get as end_activities_get
 from pm4py.statistics.start_activities.log import get  as start_activities_get
-from pm4py.algo.discovery.inductive.util import parallel_cut_utils, detection_utils, cut_detection
-from pm4py.algo.discovery.inductive.variants.im_f import splitting_infrequent, fall_through_infrequent
-from pm4py.algo.discovery.inductive.variants.im.util import fall_through
+from local_pm4py.algo.discovery.inductive.util import parallel_cut_utils, detection_utils, cut_detection
+from local_pm4py.algo.discovery.inductive.variants.im_f import splitting_infrequent, fall_through_infrequent
+from local_pm4py.algo.discovery.inductive.variants.im.util import fall_through
 from pm4py.util import exec_utils
 import pkgutil
 import logging

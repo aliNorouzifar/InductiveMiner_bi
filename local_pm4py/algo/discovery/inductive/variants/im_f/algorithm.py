@@ -1,28 +1,13 @@
-'''
-    This file is part of PM4Py (More Info: https://pm4py.fit.fraunhofer.de).
 
-    PM4Py is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    PM4Py is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with PM4Py.  If not, see <https://www.gnu.org/licenses/>.
-'''
 import pkgutil
 
 from pm4py import util as pmutil
-from pm4py.algo.discovery.dfg.variants import native as dfg_inst
-from pm4py.algo.discovery.inductive.util import shared_constants
-from pm4py.algo.discovery.inductive.util import tree_consistency
-from pm4py.algo.discovery.inductive.util.petri_el_count import Counts
-from pm4py.algo.discovery.inductive.variants.im.util import get_tree_repr_implain
-from pm4py.algo.discovery.inductive.variants.im_f.data_structures import subtree_infrequent as subtree
+from local_pm4py.algo.discovery.dfg.variants import native as dfg_inst
+from local_pm4py.algo.discovery.inductive.util import shared_constants
+from local_pm4py.algo.discovery.inductive.util import tree_consistency
+from local_pm4py.algo.discovery.inductive.util.petri_el_count import Counts
+from local_pm4py.algo.discovery.inductive.variants.im.util import get_tree_repr_implain
+from local_pm4py.algo.discovery.inductive.variants.im_f.data_structures import subtree_infrequent as subtree
 from pm4py.objects.conversion.log import converter
 from pm4py.objects.conversion.process_tree import converter as tree_to_petri
 from pm4py.objects.log.obj import EventLog

@@ -1,6 +1,5 @@
-# from pm4py.algo.conformance.alignments import algorithm as alignments
 from pm4py.algo.conformance.alignments.petri_net import algorithm as alignments
-from pm4py.algo.evaluation.replay_fitness import evaluator as replay_fitness
+from pm4py.algo.evaluation.replay_fitness import algorithm as replay_fitness
 from pm4py.algo.conformance.alignments.dfg import algorithm as dfg_alignment
 from pm4py.algo.evaluation.precision import algorithm as precision_evaluator
 
